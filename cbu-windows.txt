@@ -72,18 +72,17 @@ C:\ProgramData\DriveClient
 Download http://agentrepo.drivesrvr.com/win64/driveclient-latest.msi
 
 There under download path execute the following:
-​
-msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=api.<region>.cbu.rackspace.net DATACENTER=<region>
-
-If still no luck try ( commonly under IAD region or Rackconnect servers )
 
 ## List of APIHOSTNAME:
 
 api.drivesrvr.com
 <region>.backup.api.rackspacecloud.com
-api.<region>.cbu.rackspace.net
+​
+msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=<region>.backup.api.rackspacecloud.com DATACENTER=<region>
 
-msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=api.<region>.cbu.rackspace.net DATACENTER=<region> FLAVOR=privatecloud
+If still no luck try ( commonly under IAD region or Rackconnect servers )
+
+msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=<region>.backup.api.rackspacecloud.com DATACENTER=<region> FLAVOR=privatecloud
 ​
 https://docs.rackspace.com/docs/rackspace-cloud-backup-install-the-agent-on-windows-by-using-silent-installation
 
@@ -96,11 +95,4 @@ Please check the following::
 - services.msc, look for driveclient service.
 - Windows Registry Keys under, HKEY_LOCAL_MACHINE\SOFTWARE\Rackspace\CloudBackup
 - Customer Portal --> Rackspace Cloud --> Backups --> Systems --> Select System --> System has to be shown as connected
-
-
-
-
-
-
-
 
