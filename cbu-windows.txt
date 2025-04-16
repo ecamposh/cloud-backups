@@ -1,0 +1,106 @@
+
+###### --- Rackspace Cloud Backup (driveclient) agent on Windows Servers--- ######
+
+### Before uninstalling Rackspace Cloud Backup (driveclient), first verify "%programdata%\driveclient\bootstrap.json" file to know previous authentication credentials.
+- Agent ID
+- Username
+​
+### Please do the following for the uninstallation (use an user with admin permissions).
+​
+1) Go to 'services.msc' and stop driveclient service.
+​
+2) Copy and paste folder DriveClient found on C:\ProgramData\  to a location you can retrieve later if needed.
+​
+3) Proceed with normal uninstallation through "Control Panel --> Programs and Features".
+​
+If no Rackspace Cloud Backup program found please do as follows:
+​
+You will need to have downloaded the version that corresponds to the one appearing on Customer Portal (mycloud.rackspace.com) --> Rackspace Cloud --> Backups --> Systems --> System Details --> Agent Version
+​
+Repository --> http://agentrepo.drivesrvr.com/win64/
+​
+Then once located on the .msi file downloaded path, execute the following command:
+​
+msiexec /x driveclient-<version>.msi /qb /l*v %tmp%\uninstall.log
+​
+Example command:
+​
+msiexec /x driveclient-latest.msi /qb /l*v %tmp%\uninstall.log
+​
+https://docs.rackspace.com/docs/rackspace-cloud-backup-install-the-agent-on-windows#uninstall-cloud-backup-agent-on-windows
+​
+---------------------------------------------------------------------------------------------------------------------------------------------
+​
+If you are still getting errors in this part follow the next procedure:
+​
+1. Open a Command Prompt by right clicking on it and "Run As Administrator".
+​
+2. Query both services, to see the status they are in:
+     A. sc query driveclient
+     B. sc query upgradercbusvc
+       *If one or both of these are not installed, and you can skip that one.
+​
+3. Stop any services that are running from command prompt.
+     A. sc stop driveclient
+     B. sc stop upgradercbusvc
+       *This will show "STATE : 3 STOP_PENDING". Run the 'sc query' commands (step 2 above) for the appropriate service(s), until "STATE : 1 STOPPED".
+​
+4. Once the service(s) are stopped, we need to delete them out of the Service Manager
+     A. sc delete driveclient
+     B. sc delete upgradercbusvc
+       *This should show: "[SC] DeleteService SUCCESS"
+        
+5. Delete the following directories, and all sub directories/files:
+            C:\Program Files\DriveClient
+                del /S /F "C:\Program Files\DriveClient"
+                del /S /F "C:\ProgramData\DriveClient"
+​
+6. Remove registry keys
+     All registry keys are stored in HKEY_LOCAL_MACHINE\SOFTWARE\Rackspace\CloudBackup
+​
+----------------------------------------------------------------------------------------------------------------------------------------------
+​
+4) Delete the following directories:
+​
+C:\Program Files\DriveClient
+C:\ProgramData\DriveClient
+​
+5) Also delete windows registry keys contained on the path --> Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Rackspace\CloudBackup
+​
+6) Attempt re-installing/re-registering Rackspace Cloud Backup (driveclient) agent.
+
+Download http://agentrepo.drivesrvr.com/win64/driveclient-latest.msi
+
+There under download path execute the following:
+​
+msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=api.<region>.cbu.rackspace.net DATACENTER=<region>
+
+If still no luck try ( commonly under IAD region or Rackconnect servers )
+
+## List of APIHOSTNAME:
+
+api.drivesrvr.com
+<region>.backup.api.rackspacecloud.com
+api.<region>.cbu.rackspace.net
+
+msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=api.<region>.cbu.rackspace.net DATACENTER=<region> FLAVOR=privatecloud
+​
+https://docs.rackspace.com/docs/rackspace-cloud-backup-install-the-agent-on-windows-by-using-silent-installation
+
+You will need to manually check the status of the installation, no message will be sent.
+
+Please check the following::
+
+- Program Files, look for Rackspace Cloud Backup.
+- %programdata%, look for driveclient.
+- services.msc, look for driveclient service.
+- Windows Registry Keys under, HKEY_LOCAL_MACHINE\SOFTWARE\Rackspace\CloudBackup
+- Customer Portal --> Rackspace Cloud --> Backups --> Systems --> Select System --> System has to be shown as connected
+
+
+
+
+
+
+
+
