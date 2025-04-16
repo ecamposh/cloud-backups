@@ -1,5 +1,5 @@
 
-###### --- Rackspace Cloud Backup (driveclient) agent on Windows Servers--- ######
+###### --- Rackspace Cloud Backup (driveclient) agent on Windows Servers --- ######
 
 ### Before uninstalling Rackspace Cloud Backup (driveclient), first verify "%programdata%\driveclient\bootstrap.json" file to know previous authentication credentials.
 - Agent ID
