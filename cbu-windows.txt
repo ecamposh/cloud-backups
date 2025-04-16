@@ -1,6 +1,36 @@
 
 ###### --- Rackspace Cloud Backup (driveclient) agent on Windows Servers --- ######
 
+### Connectivity tests
+
+Note: For London region --> rse.drivesrvr.co.uk, api.drivesrvr.co.uk
+
+Note: For London region --> lon.identity.api.rackspacecloud.com
+
+Region DC
+ORD    ord1
+DFW    dfw1
+IAD    iad3
+LON    lon3
+SYD    syd2
+HKG    hkg1
+
+Invoke-WebRequest -Uri "https://identity.api.rackspacecloud.com" -UseBasicParsing
+
+Invoke-WebRequest -Uri "https://rse.drivesrvr.com/health" -OutFile "C:\healh.txt"
+
+Invoke-WebRequest -Uri "https://api.drivesrvr.com/v1.0/help/apihealth" -OutFile "C:\apihealh.txt"
+
+Test-NetConnection -ComputerName api.drivesrvr.com -Port 443
+
+Test-NetConnection -ComputerName rse.drivesrvr.com -Port 443
+
+Test-NetConnection -ComputerName storage101.${DC}.clouddrive.com -Port 443
+
+Test-NetConnection -ComputerName snet-storage101.${DC}.clouddrive.com -Port 443
+
+ping ${REGION}.backup.api.rackspacecloud.com
+
 ### Before uninstalling Rackspace Cloud Backup (driveclient), first verify "%programdata%\driveclient\bootstrap.json" file to know previous authentication credentials.
 - Agent ID
 - Username
