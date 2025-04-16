@@ -80,7 +80,7 @@ api.drivesrvr.com
 ​
 msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=<region>.backup.api.rackspacecloud.com DATACENTER=<region>
 
-If still no luck try ( commonly under IAD region or Rackconnect servers )
+If keeps failing try:
 
 msiexec /i driveclient-latest.msi /qn /l*v %tmp%\install-driveclient-latest.log APIUSER=<username> APIKEY=<api_key> APIHOSTNAME=<region>.backup.api.rackspacecloud.com DATACENTER=<region> FLAVOR=privatecloud
 ​
