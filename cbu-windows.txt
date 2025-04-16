@@ -25,11 +25,35 @@ Test-NetConnection -ComputerName api.drivesrvr.com -Port 443
 
 Test-NetConnection -ComputerName rse.drivesrvr.com -Port 443
 
-Test-NetConnection -ComputerName storage101.${DC}.clouddrive.com -Port 443
+Test-NetConnection -ComputerName storage101.<DC>.clouddrive.com -Port 443
 
-Test-NetConnection -ComputerName snet-storage101.${DC}.clouddrive.com -Port 443
+Test-NetConnection -ComputerName snet-storage101.<DC>.clouddrive.com -Port 443
 
-ping ${REGION}.backup.api.rackspacecloud.com
+ping <region>.backup.api.rackspacecloud.com
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+​
+## Testing getting API Token
+​
+$username = "<username>"
+$apiKey = "<api_key>"
+$authUrl = 'https://identity.api.rackspacecloud.com/v2.0/tokens'
+​
+# Authenticate and get the token
+$authData = @{
+    auth = @{
+        "RAX-KSKEY:apiKeyCredentials" = @{
+            username = $username
+            apiKey = $apiKey
+        }
+    }
+}
+​
+$authResponse = Invoke-RestMethod -Uri $authUrl -Method Post -Body ($authData | ConvertTo-Json) -ContentType 'application/json'
+​
+$token = $authResponse.access.token.id
+​​
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Before uninstalling Rackspace Cloud Backup (driveclient), first verify "%programdata%\driveclient\bootstrap.json" file to know previous authentication credentials.
 - Agent ID
@@ -61,7 +85,7 @@ msiexec /x driveclient-latest.msi /qb /l*v %tmp%\uninstall.log
 ​
 https://docs.rackspace.com/docs/rackspace-cloud-backup-install-the-agent-on-windows#uninstall-cloud-backup-agent-on-windows
 ​
----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ​
 If you are still getting errors in this part follow the next procedure:
 ​
@@ -90,7 +114,7 @@ If you are still getting errors in this part follow the next procedure:
 6. Remove registry keys
      All registry keys are stored in HKEY_LOCAL_MACHINE\SOFTWARE\Rackspace\CloudBackup
 ​
-----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ​
 4) Delete the following directories:
 ​
