@@ -4,6 +4,8 @@
 ### Before uninstalling Rackspace Cloud Backup (driveclient), first verify "%programdata%\driveclient\bootstrap.json" file to know previous authentication credentials.
 - Agent ID
 - Username
+
+https://docs-ospc.rackspace.com/support/how-to/cloud-backup/rackspace-cloud-backup-install-the-agent-on-windows/
 ​
 ### Please do the following for the uninstallation (use an user with admin permissions).
 ​
